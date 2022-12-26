@@ -7,7 +7,7 @@ import org.springframework.stereotype.Component;
 @Component
 public class PerfumMapper {
 
-    PerfumDto parfumToParfumDto(Perfum perfum)
+    public PerfumDto perfumToPerfumDto(Perfum perfum)
     {
         return new PerfumDto()
                 .builder()
@@ -18,7 +18,7 @@ public class PerfumMapper {
                 .build();
     }
 
-    Perfum parfumDtoToParfum(PerfumDto perfumDto)
+    public Perfum perfumDtoToPerfum(PerfumDto perfumDto)
     {
         return new Perfum()
                 .builder()
