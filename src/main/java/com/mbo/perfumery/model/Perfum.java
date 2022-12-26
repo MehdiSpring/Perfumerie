@@ -13,7 +13,7 @@ import javax.persistence.*;
 @NoArgsConstructor
 @AllArgsConstructor
 @Builder
-public class Parfum {
+public class Perfum {
 
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
@@ -24,4 +24,6 @@ public class Parfum {
 
     @Enumerated(EnumType.STRING)
     private Category category;
+
+    private Double price;
 }
