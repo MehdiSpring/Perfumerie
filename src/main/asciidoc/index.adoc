@@ -1,4 +1,4 @@
-= SFG Brewery Order Service Docs
+= Perfumery Microservice
 Mehdi BOUMZZI;
 :doctype: book
 :icons: font
@@ -6,55 +6,55 @@ Mehdi BOUMZZI;
 
 Sample application demonstrating how to use Spring REST Docs with JUnit 5.
 
-`EmployeeControllerTest` makes a call to a very simple service and produces three
+`PerfumControllerTest` makes a call to a very simple service and produces two
 documentation snippets.
 
-* api/employees:
+* api/v1/perfums:
 
 One showing how to make a request using cURL:
 
-include::{snippets}/api/employees/curl-request.adoc[]
+include::{snippets}/api/v1/perfums/curl-request.adoc[]
 
 One showing the HTTP request:
 
-include::{snippets}/api/employees/http-request.adoc[]
-
-Request Fields:
-
-include::{snippets}/api/employees/request-fields.adoc[]
+include::{snippets}/api/v1/perfums/http-request.adoc[]
 
 And one showing the HTTP response:
 
-include::{snippets}/api/employees/http-response.adoc[]
+include::{snippets}/api/v1/perfums/http-response.adoc[]
 
 Response Body:
 
-include::{snippets}/api/employees/response-body.adoc[]
-
-                                        -------------------------------------------
-
-* api/employees/byLastName:
-
-One showing how to make a request using cURL:
-
-include::{snippets}/api/employees/byLastName/curl-request.adoc[]
-
-One showing the HTTP request:
-
-include::{snippets}/api/employees/byLastName/http-request.adoc[]
-
-Request Parameter:
-
-include::{snippets}/api/employees/byLastName/request-parameters.adoc[]
-
-And one showing the HTTP response:
-
-include::{snippets}/api/employees/byLastName/http-response.adoc[]
-
-Response Body:
-
-include::{snippets}/api/employees/byLastName/response-body.adoc[]
+include::{snippets}/api/v1/perfums/response-body.adoc[]
 
 Response Fields:
 
-include::{snippets}/api/employees/byLastName/response-fields.adoc[]
+include::{snippets}/api/v1/perfums/response-fields.adoc[]
+
+                                        -------------------------------------------
+
+* api/v1/perfums/byCategory:
+
+One showing how to make a request using cURL:
+
+include::{snippets}/api/v1/perfums/byCategory/curl-request.adoc[]
+
+One showing the HTTP request:
+
+include::{snippets}/api/v1/perfums/byCategory/http-request.adoc[]
+
+Request Parameter:
+
+include::{snippets}/api/v1/perfums/byCategory/request-parameters.adoc[]
+
+And one showing the HTTP response:
+
+include::{snippets}/api/v1/perfums/byCategory/http-response.adoc[]
+
+Response Body:
+
+include::{snippets}/api/v1/perfums/byCategory/response-body.adoc[]
+
+Response Fields:
+
+include::{snippets}/api/v1/perfums/byCategory/response-fields.adoc[]
