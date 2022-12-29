@@ -6,6 +6,7 @@ import com.mbo.perfumery.mapper.PerfumMapper;
 import com.mbo.perfumery.model.Perfum;
 import com.mbo.perfumery.repository.PerfumRepository;
 import lombok.RequiredArgsConstructor;
+import org.springframework.beans.BeanUtils;
 import org.springframework.stereotype.Service;
 
 import java.util.ArrayList;
@@ -33,5 +34,25 @@ public class PerfumServiceImpl implements PerfumService {
     public List<PerfumDto> getParfumByCategory(Category category) {
 
         return perfumRepository.findByCategory(category).stream().map(perfumMapper::perfumToPerfumDto).collect(Collectors.toList());
+    }
+
+    @Override
+    public PerfumDto createPerfum(PerfumDto perfumDto) {
+        return perfumMapper.perfumToPerfumDto(perfumRepository.save(perfumMapper.perfumDtoToPerfum(perfumDto)));
+    }
+
+    @Override
+    public PerfumDto updatePerfum(Long id, PerfumDto perfumDto) {
+
+        Perfum perfumToUpdate = perfumRepository.findById(id).get();
+        BeanUtils.copyProperties(perfumDto, perfumToUpdate);
+
+        return perfumMapper.perfumToPerfumDto(perfumRepository.save(perfumToUpdate));
+    }
+
+    @Override
+    public void deletePerfum(Long id) {
+
+        perfumRepository.deleteById(id);
     }
 }
