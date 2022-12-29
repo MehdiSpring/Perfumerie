@@ -1,5 +1,7 @@
 package com.mbo.perfumery.controller;
 
+import com.fasterxml.jackson.core.JsonProcessingException;
+import com.fasterxml.jackson.databind.ObjectMapper;
 import com.mbo.perfumery.dto.PerfumDto;
 import com.mbo.perfumery.enums.Category;
 import com.mbo.perfumery.service.PerfumService;
@@ -23,10 +25,8 @@ import static org.mockito.Mockito.*;
 import static org.junit.jupiter.api.Assertions.*;
 import static org.springframework.restdocs.mockmvc.MockMvcRestDocumentation.*;
 import static org.springframework.restdocs.mockmvc.RestDocumentationRequestBuilders.*;
-import static org.springframework.restdocs.payload.PayloadDocumentation.fieldWithPath;
-import static org.springframework.restdocs.payload.PayloadDocumentation.responseFields;
-import static org.springframework.restdocs.request.RequestDocumentation.parameterWithName;
-import static org.springframework.restdocs.request.RequestDocumentation.requestParameters;
+import static org.springframework.restdocs.payload.PayloadDocumentation.*;
+import static org.springframework.restdocs.request.RequestDocumentation.*;
 import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.jsonPath;
 import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.status;
 
@@ -35,8 +35,12 @@ import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.
 @ExtendWith(RestDocumentationExtension.class)
 class PerfumControllerTest {
 
+    public static final String API_V1_PERFUMS = "/api/v1/perfums";
     @MockBean
     PerfumService perfumService;
+
+    @Autowired
+    ObjectMapper objectMapper;
 
     @Autowired
     MockMvc mockMvc;
@@ -55,11 +59,11 @@ class PerfumControllerTest {
         when(perfumService.getAllParfum()).thenReturn(perfumDtos);
 
         //Then
-        mockMvc.perform(get("/api/v1/perfums")
-                        .accept(MediaType.APPLICATION_JSON))
+        mockMvc.perform(get(API_V1_PERFUMS)
+                        .accept(MediaType.APPLICATION_JSON_VALUE))
                 .andExpect(status().isAccepted())
                 .andExpect(jsonPath("$.size()", equalTo(5)))
-                .andDo(document("/api/v1/perfums",
+                .andDo(document("get"+API_V1_PERFUMS,
                         responseFields(
                                 fieldWithPath("[].name").description("Perfum's name"),
                                 fieldWithPath("[].description").description("A brief description about the Perfum"),
@@ -75,12 +79,12 @@ class PerfumControllerTest {
         when(perfumService.getParfumByCategory(any())).thenReturn(perfumDtos);
 
         //Then
-        mockMvc.perform(get("/api/v1/perfums/byCategory")
-                        .accept(MediaType.APPLICATION_JSON)
+        mockMvc.perform(get(API_V1_PERFUMS + "/byCategory")
+                        .accept(MediaType.APPLICATION_JSON_VALUE)
                         .param("category", "Women"))
                 .andExpect(status().isAccepted())
                 .andExpect(jsonPath("$.size()", equalTo(5)))
-                .andDo(document("/api/v1/perfums/byCategory",
+                .andDo(document("get"+API_V1_PERFUMS + "/byCategory",
                         requestParameters(
                                 parameterWithName("category").description("Perfum's category to lock for")
                         ),
@@ -89,6 +93,91 @@ class PerfumControllerTest {
                                 fieldWithPath("[].description").description("A brief description about the Perfum"),
                                 fieldWithPath("[].category").description("Defines if the perfum is for Men or Women"),
                                 fieldWithPath("[].price").description("Perfum's price")
+                        )));
+    }
+
+    @Test
+    void createPerfum() throws Exception {
+        //Given
+        PerfumDto perfumDto = new PerfumDto().builder()
+                .name("Perfum 1")
+                .description("Test's perfum")
+                .category(Category.Men).build();
+
+        String jsonPerfum = objectMapper.writeValueAsString(perfumDto);
+
+        //When
+        when(perfumService.createPerfum(any())).thenReturn(perfumDto);
+
+        //Then
+        mockMvc.perform(post(API_V1_PERFUMS)
+                .accept(MediaType.APPLICATION_JSON_VALUE)
+                .contentType(MediaType.APPLICATION_JSON_VALUE)
+                .content(jsonPerfum))
+                .andExpect(status().isCreated())
+                .andExpect(jsonPath("$.name", equalTo(perfumDto.getName())))
+                .andDo(document("post"+API_V1_PERFUMS,
+                        requestFields(
+                                fieldWithPath("name").description("Perfum's name"),
+                                fieldWithPath("description").description("A brief description about the Perfum"),
+                                fieldWithPath("category").description("Defines if the perfum is for Men or Women"),
+                                fieldWithPath("price").description("Perfum's price")
+                        ),
+                        responseFields(
+                                fieldWithPath("name").description("Perfum's name"),
+                                fieldWithPath("description").description("A brief description about the Perfum"),
+                                fieldWithPath("category").description("Defines if the perfum is for Men or Women"),
+                                fieldWithPath("price").description("Perfum's price")
+                        )));
+
+    }
+
+    @Test
+    void updatePerfum() throws Exception {
+        //Given
+        PerfumDto perfumDto = new PerfumDto().builder()
+                .name("Perfum 1")
+                .description("Test's perfum")
+                .category(Category.Men).build();
+
+        String jsonPerfum = objectMapper.writeValueAsString(perfumDto);
+
+        //When
+        when(perfumService.updatePerfum(anyLong(), any())).thenReturn(perfumDto);
+
+        //Then
+        mockMvc.perform(put(API_V1_PERFUMS+"/{id}", 5)
+                .accept(MediaType.APPLICATION_JSON_VALUE)
+                .contentType(MediaType.APPLICATION_JSON_VALUE)
+                .content(jsonPerfum))
+                .andExpect(status().isAccepted())
+                .andExpect(jsonPath("$.name", equalTo(perfumDto.getName())))
+                .andDo(document("put"+API_V1_PERFUMS,
+                        pathParameters(
+                                parameterWithName("id").description("The perfum'Id to update")
+                        ),
+                        requestFields(
+                                fieldWithPath("name").description("Perfum's name"),
+                                fieldWithPath("description").description("A brief description about the Perfum"),
+                                fieldWithPath("category").description("Defines if the perfum is for Men or Women"),
+                                fieldWithPath("price").description("Perfum's price")
+                        ),
+                        responseFields(
+                                fieldWithPath("name").description("Perfum's name"),
+                                fieldWithPath("description").description("A brief description about the Perfum"),
+                                fieldWithPath("category").description("Defines if the perfum is for Men or Women"),
+                                fieldWithPath("price").description("Perfum's price")
+                        )));
+    }
+
+    @Test
+    void deletePerfum() throws Exception {
+        //Then, When
+        mockMvc.perform(delete(API_V1_PERFUMS+"/{id}", 6))
+                .andExpect(status().isAccepted())
+                .andDo(document("delete"+API_V1_PERFUMS,
+                        pathParameters(
+                                parameterWithName("id").description("Perfum's Id to delete")
                         )));
     }
 

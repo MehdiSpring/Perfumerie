@@ -9,52 +9,140 @@ Sample application demonstrating how to use Spring REST Docs with JUnit 5.
 `PerfumControllerTest` makes a call to a very simple service and produces two
 documentation snippets.
 
-* api/v1/perfums:
+* GET api/v1/perfums:
 
 One showing how to make a request using cURL:
 
-include::{snippets}/api/v1/perfums/curl-request.adoc[]
+include::{snippets}/get/api/v1/perfums/curl-request.adoc[]
 
 One showing the HTTP request:
 
-include::{snippets}/api/v1/perfums/http-request.adoc[]
+include::{snippets}/get/api/v1/perfums/http-request.adoc[]
 
 And one showing the HTTP response:
 
-include::{snippets}/api/v1/perfums/http-response.adoc[]
+include::{snippets}/get/api/v1/perfums/http-response.adoc[]
 
 Response Body:
 
-include::{snippets}/api/v1/perfums/response-body.adoc[]
+include::{snippets}/get/api/v1/perfums/response-body.adoc[]
 
 Response Fields:
 
-include::{snippets}/api/v1/perfums/response-fields.adoc[]
+include::{snippets}/get/api/v1/perfums/response-fields.adoc[]
 
                                         -------------------------------------------
 
-* api/v1/perfums/byCategory:
+* GET api/v1/perfums/byCategory:
 
 One showing how to make a request using cURL:
 
-include::{snippets}/api/v1/perfums/byCategory/curl-request.adoc[]
+include::{snippets}/get/api/v1/perfums/byCategory/curl-request.adoc[]
 
 One showing the HTTP request:
 
-include::{snippets}/api/v1/perfums/byCategory/http-request.adoc[]
+include::{snippets}/get/api/v1/perfums/byCategory/http-request.adoc[]
 
 Request Parameter:
 
-include::{snippets}/api/v1/perfums/byCategory/request-parameters.adoc[]
+include::{snippets}/get/api/v1/perfums/byCategory/request-parameters.adoc[]
 
 And one showing the HTTP response:
 
-include::{snippets}/api/v1/perfums/byCategory/http-response.adoc[]
+include::{snippets}/get/api/v1/perfums/byCategory/http-response.adoc[]
 
 Response Body:
 
-include::{snippets}/api/v1/perfums/byCategory/response-body.adoc[]
+include::{snippets}/get/api/v1/perfums/byCategory/response-body.adoc[]
 
 Response Fields:
 
-include::{snippets}/api/v1/perfums/byCategory/response-fields.adoc[]
+include::{snippets}/get/api/v1/perfums/byCategory/response-fields.adoc[]
+
+
+                                        -------------------------------------------
+
+* POST api/v1/perfums:
+
+One showing how to make a request using cURL:
+
+include::{snippets}/post/api/v1/perfums/curl-request.adoc[]
+
+One showing the HTTP request:
+
+include::{snippets}/post/api/v1/perfums/http-request.adoc[]
+
+Request Fields:
+
+include::{snippets}/post/api/v1/perfums/request-fields.adoc[]
+
+And one showing the HTTP response:
+
+include::{snippets}/post/api/v1/perfums/http-response.adoc[]
+
+Response Body:
+
+include::{snippets}/post/api/v1/perfums/response-body.adoc[]
+
+Response Fields:
+
+include::{snippets}/post/api/v1/perfums/response-fields.adoc[]
+
+
+                                          -------------------------------------------
+
+* PUT api/v1/perfums:
+
+One showing how to make a request using cURL:
+
+include::{snippets}/put/api/v1/perfums/curl-request.adoc[]
+
+One showing the HTTP request:
+
+include::{snippets}/put/api/v1/perfums/http-request.adoc[]
+
+Path Parameter:
+
+include::{snippets}/put/api/v1/perfums/path-parameters.adoc[]
+
+Request Fields:
+
+include::{snippets}/put/api/v1/perfums/request-fields.adoc[]
+
+And one showing the HTTP response:
+
+include::{snippets}/put/api/v1/perfums/http-response.adoc[]
+
+Response Body:
+
+include::{snippets}/put/api/v1/perfums/response-body.adoc[]
+
+Response Fields:
+
+include::{snippets}/put/api/v1/perfums/response-fields.adoc[]
+
+
+                                         -------------------------------------------
+
+* DELETE api/v1/perfums:
+
+One showing how to make a request using cURL:
+
+include::{snippets}/delete/api/v1/perfums/curl-request.adoc[]
+
+One showing the HTTP request:
+
+include::{snippets}/delete/api/v1/perfums/http-request.adoc[]
+
+Path Parameter:
+
+include::{snippets}/delete/api/v1/perfums/path-parameters.adoc[]
+
+And one showing the HTTP response:
+
+include::{snippets}/delete/api/v1/perfums/http-response.adoc[]
+
+Response Body:
+
+include::{snippets}/delete/api/v1/perfums/response-body.adoc[]
+
