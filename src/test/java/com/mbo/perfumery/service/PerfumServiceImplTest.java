@@ -13,6 +13,7 @@ import org.mockito.MockitoAnnotations;
 
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Optional;
 import java.util.stream.Collectors;
 import java.util.stream.Stream;
 
@@ -76,5 +77,57 @@ class PerfumServiceImplTest {
                 new Perfum().builder().name("Parfum 3").description("Parfum de test").category(Category.Men).build(),
                 new Perfum().builder().name("Parfum 4").description("Parfum de test").category(Category.Women).build(),
                 new Perfum().builder().name("Parfum 5").description("Parfum de test").category(Category.Men).build()).collect(Collectors.toList());
+    }
+
+    @Test
+    void createPerfum() {
+        //Given
+        PerfumDto perfumToCreate = new PerfumDto().builder()
+                .name("Perfum 1")
+                .description("Test's perfum")
+                .category(Category.Men)
+                .price(50D).build();
+
+        //When
+        when(perfumRepository.save(any())).thenReturn(perfumMapper.perfumDtoToPerfum(perfumToCreate));
+
+        //Then
+        PerfumDto savedPerfumDto = perfumService.createPerfum(perfumToCreate);
+        assertEquals(perfumToCreate.getName(), savedPerfumDto.getName());
+        assertEquals(perfumToCreate.getDescription(), savedPerfumDto.getDescription());
+        assertEquals(perfumToCreate.getCategory(), savedPerfumDto.getCategory());
+    }
+
+    @Test
+    void updatePerfum() {
+        //given
+        Optional<Perfum> perfumToUpdate = Optional.of(new Perfum().builder()
+                .name("Perfum 2")
+                .description("Test's perfum for women")
+                .category(Category.Women)
+                .price(70D).build());
+
+        PerfumDto perfumDto= new PerfumDto().builder()
+                .name("Perfum 2.2")
+                .description("Test's perfum for women (Price changed)")
+                .category(Category.Women)
+                .price(80D).build();
+
+        //When
+        when(perfumRepository.findById(anyLong())).thenReturn(perfumToUpdate);
+        when(perfumRepository.save(any())).thenReturn(perfumMapper.perfumDtoToPerfum(perfumDto));
+
+        //Then
+        PerfumDto updatedPerfumDto = perfumService.updatePerfum(5L, perfumDto);
+        assertEquals(perfumDto.getName(), updatedPerfumDto.getName());
+        assertEquals(perfumDto.getDescription(), updatedPerfumDto.getDescription());
+        assertEquals(perfumDto.getPrice(), updatedPerfumDto.getPrice());
+    }
+
+    @Test
+    void deletePerfum() {
+        //Then, When
+        perfumService.deletePerfum(5L);
+        verify(perfumRepository, times(1)).deleteById(anyLong());
     }
 }
