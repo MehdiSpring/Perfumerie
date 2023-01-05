@@ -17,6 +17,7 @@ import org.springframework.restdocs.RestDocumentationExtension;
 import org.springframework.test.web.servlet.MockMvc;
 
 import java.util.List;
+import java.util.UUID;
 import java.util.stream.Collectors;
 import java.util.stream.Stream;
 
@@ -65,10 +66,14 @@ class PerfumControllerTest {
                 .andExpect(jsonPath("$.size()", equalTo(5)))
                 .andDo(document("get"+API_V1_PERFUMS,
                         responseFields(
-                                fieldWithPath("[].name").description("Perfum's name"),
-                                fieldWithPath("[].description").description("A brief description about the Perfum"),
-                                fieldWithPath("[].category").description("Defines if the perfum is for Men or Women"),
-                                fieldWithPath("[].price").description("Perfum's price")
+                                fieldWithPath("[].id").type("UUID").description("Perfum's id"),
+                                fieldWithPath("[].name").type("String").description("Perfum's name"),
+                                fieldWithPath("[].description").type("String").description("A brief description about the Perfum"),
+                                fieldWithPath("[].ingredient").type("String").description("List of ingredients used to product the Perfum"),
+                                fieldWithPath("[].category").type("String").description("It's an Enum that can have 2 values {Men, Women}. this property allows to know if the perfum is for Men or Women"),
+                                fieldWithPath("[].createdDate").type("Date").description("Creation date of the perfum"),
+                                fieldWithPath("[].updatedDate").type("Date").description("Last update date of the perfum"),
+                                fieldWithPath("[].price").type("Double").description("Perfum's price")
                         )));
     }
 
@@ -89,10 +94,14 @@ class PerfumControllerTest {
                                 parameterWithName("category").description("Perfum's category to lock for")
                         ),
                         responseFields(
-                                fieldWithPath("[].name").description("Perfum's name"),
-                                fieldWithPath("[].description").description("A brief description about the Perfum"),
-                                fieldWithPath("[].category").description("Defines if the perfum is for Men or Women"),
-                                fieldWithPath("[].price").description("Perfum's price")
+                                fieldWithPath("[].id").type("UUID").description("Perfum's id"),
+                                fieldWithPath("[].name").type("String").description("Perfum's name"),
+                                fieldWithPath("[].description").type("String").description("A brief description about the Perfum"),
+                                fieldWithPath("[].ingredient").type("String").description("List of ingredients used to product the Perfum"),
+                                fieldWithPath("[].category").type("String").description("It's an Enum that can have 2 values {Men, Women}. this property allows to know if the perfum is for Men or Women"),
+                                fieldWithPath("[].createdDate").type("Date").description("Creation date of the perfum"),
+                                fieldWithPath("[].updatedDate").type("Date").description("Last update date of the perfum"),
+                                fieldWithPath("[].price").type("Double").description("Perfum's price")
                         )));
     }
 
@@ -118,16 +127,24 @@ class PerfumControllerTest {
                 .andExpect(jsonPath("$.name", equalTo(perfumDto.getName())))
                 .andDo(document("post"+API_V1_PERFUMS,
                         requestFields(
-                                fieldWithPath("name").description("Perfum's name"),
-                                fieldWithPath("description").description("A brief description about the Perfum"),
-                                fieldWithPath("category").description("Defines if the perfum is for Men or Women"),
-                                fieldWithPath("price").description("Perfum's price")
+                                fieldWithPath("id").ignored(),
+                                fieldWithPath("createdDate").ignored(),
+                                fieldWithPath("updatedDate").ignored(),
+                                fieldWithPath("name").type("String").description("Perfum's name"),
+                                fieldWithPath("description").type("String").description("A brief description about the Perfum"),
+                                fieldWithPath("ingredient").type("String").description("List of ingredients used to product the Perfum"),
+                                fieldWithPath("category").type("String").description("It's an Enum that can have 2 values {Men, Women}. this property allows to know if the perfum is for Men or Women"),
+                                fieldWithPath("price").type("Double").description("Perfum's price")
                         ),
                         responseFields(
-                                fieldWithPath("name").description("Perfum's name"),
-                                fieldWithPath("description").description("A brief description about the Perfum"),
-                                fieldWithPath("category").description("Defines if the perfum is for Men or Women"),
-                                fieldWithPath("price").description("Perfum's price")
+                                fieldWithPath("id").type("UUID").description("Perfum's id"),
+                                fieldWithPath("name").type("String").description("Perfum's name"),
+                                fieldWithPath("description").type("String").description("A brief description about the Perfum"),
+                                fieldWithPath("ingredient").type("String").description("List of ingredients used to product the Perfum"),
+                                fieldWithPath("category").type("String").description("It's an Enum that can have 2 values {Men, Women}. this property allows to know if the perfum is for Men or Women"),
+                                fieldWithPath("createdDate").type("Date").description("Creation date of the perfum"),
+                                fieldWithPath("updatedDate").type("Date").description("Last update date of the perfum"),
+                                fieldWithPath("price").type("Double").description("Perfum's price")
                         )));
 
     }
@@ -143,10 +160,10 @@ class PerfumControllerTest {
         String jsonPerfum = objectMapper.writeValueAsString(perfumDto);
 
         //When
-        when(perfumService.updatePerfum(anyLong(), any())).thenReturn(perfumDto);
+        when(perfumService.updatePerfum(any(), any())).thenReturn(perfumDto);
 
         //Then
-        mockMvc.perform(put(API_V1_PERFUMS+"/{id}", 5)
+        mockMvc.perform(put(API_V1_PERFUMS+"/{id}", UUID.randomUUID())
                 .accept(MediaType.APPLICATION_JSON_VALUE)
                 .contentType(MediaType.APPLICATION_JSON_VALUE)
                 .content(jsonPerfum))
@@ -157,23 +174,31 @@ class PerfumControllerTest {
                                 parameterWithName("id").description("The perfum'Id to update")
                         ),
                         requestFields(
-                                fieldWithPath("name").description("Perfum's name"),
-                                fieldWithPath("description").description("A brief description about the Perfum"),
-                                fieldWithPath("category").description("Defines if the perfum is for Men or Women"),
-                                fieldWithPath("price").description("Perfum's price")
+                                fieldWithPath("id").ignored(),
+                                fieldWithPath("createdDate").ignored(),
+                                fieldWithPath("updatedDate").ignored(),
+                                fieldWithPath("name").type("String").description("Perfum's name"),
+                                fieldWithPath("description").type("String").description("A brief description about the Perfum"),
+                                fieldWithPath("ingredient").type("String").description("List of ingredients used to product the Perfum"),
+                                fieldWithPath("category").type("String").description("It's an Enum that can have 2 values {Men, Women}. this property allows to know if the perfum is for Men or Women"),
+                                fieldWithPath("price").type("Double").description("Perfum's price")
                         ),
                         responseFields(
-                                fieldWithPath("name").description("Perfum's name"),
-                                fieldWithPath("description").description("A brief description about the Perfum"),
-                                fieldWithPath("category").description("Defines if the perfum is for Men or Women"),
-                                fieldWithPath("price").description("Perfum's price")
+                                fieldWithPath("id").type("UUID").description("Perfum's id"),
+                                fieldWithPath("name").type("String").description("Perfum's name"),
+                                fieldWithPath("description").type("String").description("A brief description about the Perfum"),
+                                fieldWithPath("ingredient").type("String").description("List of ingredients used to product the Perfum"),
+                                fieldWithPath("category").type("String").description("It's an Enum that can have 2 values {Men, Women}. this property allows to know if the perfum is for Men or Women"),
+                                fieldWithPath("createdDate").type("Date").description("Creation date of the perfum"),
+                                fieldWithPath("updatedDate").type("Date").description("Last update date of the perfum"),
+                                fieldWithPath("price").type("Double").description("Perfum's price")
                         )));
     }
 
     @Test
     void deletePerfum() throws Exception {
         //Then, When
-        mockMvc.perform(delete(API_V1_PERFUMS+"/{id}", 6))
+        mockMvc.perform(delete(API_V1_PERFUMS+"/{id}", UUID.randomUUID()))
                 .andExpect(status().isAccepted())
                 .andDo(document("delete"+API_V1_PERFUMS,
                         pathParameters(

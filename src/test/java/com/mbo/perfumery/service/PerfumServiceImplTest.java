@@ -14,6 +14,7 @@ import org.mockito.MockitoAnnotations;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Optional;
+import java.util.UUID;
 import java.util.stream.Collectors;
 import java.util.stream.Stream;
 
@@ -114,11 +115,11 @@ class PerfumServiceImplTest {
                 .price(80D).build();
 
         //When
-        when(perfumRepository.findById(anyLong())).thenReturn(perfumToUpdate);
+        when(perfumRepository.findById(any())).thenReturn(perfumToUpdate);
         when(perfumRepository.save(any())).thenReturn(perfumMapper.perfumDtoToPerfum(perfumDto));
 
         //Then
-        PerfumDto updatedPerfumDto = perfumService.updatePerfum(5L, perfumDto);
+        PerfumDto updatedPerfumDto = perfumService.updatePerfum(UUID.randomUUID(), perfumDto);
         assertEquals(perfumDto.getName(), updatedPerfumDto.getName());
         assertEquals(perfumDto.getDescription(), updatedPerfumDto.getDescription());
         assertEquals(perfumDto.getPrice(), updatedPerfumDto.getPrice());
@@ -127,7 +128,7 @@ class PerfumServiceImplTest {
     @Test
     void deletePerfum() {
         //Then, When
-        perfumService.deletePerfum(5L);
-        verify(perfumRepository, times(1)).deleteById(anyLong());
+        perfumService.deletePerfum(UUID.randomUUID());
+        verify(perfumRepository, times(1)).deleteById(any());
     }
 }

@@ -11,6 +11,7 @@ import org.springframework.stereotype.Service;
 
 import java.util.ArrayList;
 import java.util.List;
+import java.util.UUID;
 import java.util.stream.Collectors;
 
 @Service
@@ -42,16 +43,20 @@ public class PerfumServiceImpl implements PerfumService {
     }
 
     @Override
-    public PerfumDto updatePerfum(Long id, PerfumDto perfumDto) {
+    public PerfumDto updatePerfum(UUID id, PerfumDto perfumDto) {
 
         Perfum perfumToUpdate = perfumRepository.findById(id).get();
-        BeanUtils.copyProperties(perfumDto, perfumToUpdate);
+        perfumToUpdate.setName(perfumDto.getName());
+        perfumToUpdate.setPrice(perfumDto.getPrice());
+        perfumToUpdate.setDescription(perfumDto.getDescription());
+        perfumToUpdate.setIngredient(perfumDto.getIngredient());
+        perfumToUpdate.setCategory(perfumDto.getCategory());
 
         return perfumMapper.perfumToPerfumDto(perfumRepository.save(perfumToUpdate));
     }
 
     @Override
-    public void deletePerfum(Long id) {
+    public void deletePerfum(UUID id) {
 
         perfumRepository.deleteById(id);
     }

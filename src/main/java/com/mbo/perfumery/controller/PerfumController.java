@@ -9,6 +9,7 @@ import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
+import java.util.UUID;
 
 @RestController
 @RequiredArgsConstructor
@@ -36,13 +37,13 @@ public class PerfumController {
     }
 
     @PutMapping("/{id}")
-    public ResponseEntity<PerfumDto> updatePerfum(@PathVariable String id, @RequestBody PerfumDto perfumDto)
+    public ResponseEntity<PerfumDto> updatePerfum(@PathVariable UUID id, @RequestBody PerfumDto perfumDto)
     {
-        return new ResponseEntity<>(perfumService.updatePerfum(Long.valueOf(id), perfumDto), HttpStatus.ACCEPTED);
+        return new ResponseEntity<>(perfumService.updatePerfum(id, perfumDto), HttpStatus.ACCEPTED);
     }
 
     @DeleteMapping("/{id}")
-    public ResponseEntity deletePerfum(@PathVariable Long id)
+    public ResponseEntity deletePerfum(@PathVariable UUID id)
     {
         perfumService.deletePerfum(id);
         return new ResponseEntity(HttpStatus.ACCEPTED);
