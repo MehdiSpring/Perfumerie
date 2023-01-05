@@ -11,7 +11,7 @@ import java.util.List;
 import java.util.stream.Collectors;
 import java.util.stream.Stream;
 
-@Component
+//@Component
 @RequiredArgsConstructor
 public class LoadData implements CommandLineRunner {
 
