@@ -111,7 +111,11 @@ class PerfumControllerTest {
         PerfumDto perfumDto = new PerfumDto().builder()
                 .name("Perfum 1")
                 .description("Test's perfum")
-                .category(Category.Men).build();
+                .category(Category.Men)
+                .ingredient("some ingredients")
+                .price(85D)
+                .build();
+
 
         String jsonPerfum = objectMapper.writeValueAsString(perfumDto);
 
@@ -150,12 +154,39 @@ class PerfumControllerTest {
     }
 
     @Test
+    void createPerfumWithInvalidProperties() throws Exception {
+        //Given
+        PerfumDto perfumDto = new PerfumDto().builder()
+                .name(" ")
+                .description("Test's perfum")
+                .category(Category.Men)
+                .ingredient("some ingredients")
+                .price(-85D)
+                .build();
+
+
+        String jsonPerfum = objectMapper.writeValueAsString(perfumDto);
+
+
+        //When, Then
+        mockMvc.perform(post(API_V1_PERFUMS)
+                        .accept(MediaType.APPLICATION_JSON_VALUE)
+                        .contentType(MediaType.APPLICATION_JSON_VALUE)
+                        .content(jsonPerfum))
+                .andExpect(status().is4xxClientError());
+
+    }
+
+    @Test
     void updatePerfum() throws Exception {
         //Given
         PerfumDto perfumDto = new PerfumDto().builder()
                 .name("Perfum 1")
                 .description("Test's perfum")
-                .category(Category.Men).build();
+                .category(Category.Men)
+                .ingredient("Update ingredients")
+                .price(45D)
+                .build();
 
         String jsonPerfum = objectMapper.writeValueAsString(perfumDto);
 
