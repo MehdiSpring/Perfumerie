@@ -8,6 +8,7 @@ import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
+import javax.validation.Valid;
 import java.util.List;
 import java.util.UUID;
 
@@ -31,13 +32,13 @@ public class PerfumController {
     }
 
     @PostMapping
-    public ResponseEntity<PerfumDto> createPerfum(@RequestBody PerfumDto perfumDto)
+    public ResponseEntity<PerfumDto> createPerfum(@Valid @RequestBody PerfumDto perfumDto)
     {
         return new ResponseEntity<>(perfumService.createPerfum(perfumDto), HttpStatus.CREATED);
     }
 
     @PutMapping("/{id}")
-    public ResponseEntity<PerfumDto> updatePerfum(@PathVariable UUID id, @RequestBody PerfumDto perfumDto)
+    public ResponseEntity<PerfumDto> updatePerfum(@PathVariable UUID id, @Valid @RequestBody PerfumDto perfumDto)
     {
         return new ResponseEntity<>(perfumService.updatePerfum(id, perfumDto), HttpStatus.ACCEPTED);
     }

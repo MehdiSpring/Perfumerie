@@ -6,7 +6,8 @@ import lombok.Builder;
 import lombok.Data;
 import lombok.NoArgsConstructor;
 
-import java.sql.Timestamp;
+import javax.validation.constraints.*;
+import java.time.OffsetDateTime;
 import java.util.UUID;
 
 @Data
@@ -15,12 +16,27 @@ import java.util.UUID;
 @Builder
 public class PerfumDto {
 
+    @Null
     private UUID id;
+
+    @NotBlank
     private String name;
+
     private String description;
+
+    @NotBlank
     private String ingredient;
+
+    @NotNull
     private Category category;
-    private Timestamp createdDate;
-    private Timestamp updatedDate;
+
+    @Null
+    private OffsetDateTime createdDate;
+
+    @Null
+    private OffsetDateTime updatedDate;
+
+    @NotNull
+    @Positive
     private Double price;
 }

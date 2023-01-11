@@ -2,12 +2,14 @@ package com.mbo.perfumery.service;
 
 import com.mbo.perfumery.dto.PerfumDto;
 import com.mbo.perfumery.enums.Category;
+import com.mbo.perfumery.mapper.DateMapper;
 import com.mbo.perfumery.mapper.PerfumMapper;
+import com.mbo.perfumery.mapper.PerfumMapperImpl;
 import com.mbo.perfumery.model.Perfum;
 import com.mbo.perfumery.repository.PerfumRepository;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
-import org.mockito.InjectMocks;
+
 import org.mockito.Mock;
 import org.mockito.MockitoAnnotations;
 
@@ -36,7 +38,7 @@ class PerfumServiceImplTest {
     void setUp()
     {
         MockitoAnnotations.openMocks(this);
-        perfumMapper = new PerfumMapper();
+        perfumMapper =  new PerfumMapperImpl(new DateMapper());
         perfumService = new PerfumServiceImpl(perfumRepository, perfumMapper);
 
         perfums = this.initSomePerfum();
