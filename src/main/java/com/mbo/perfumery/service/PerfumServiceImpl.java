@@ -60,4 +60,19 @@ public class PerfumServiceImpl implements PerfumService {
 
         perfumRepository.deleteById(id);
     }
+
+    @Override
+    public boolean checkStockQuantity(UUID id, Integer orderQuantity) {
+        Perfum perfum = perfumRepository.findById(id)
+                .orElseThrow(() -> new RuntimeException("Perfum not found"));
+        Integer availableStockQuantity = perfum.getStockQuantity();
+
+        if(availableStockQuantity >= orderQuantity)
+        {
+            perfum.setStockQuantity(availableStockQuantity-orderQuantity);
+            return true;
+        }
+
+        return false;
+    }
 }

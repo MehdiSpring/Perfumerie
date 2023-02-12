@@ -133,4 +133,22 @@ class PerfumServiceImplTest {
         perfumService.deletePerfum(UUID.randomUUID());
         verify(perfumRepository, times(1)).deleteById(any());
     }
+
+    @Test
+    void checkStockQuantity() {
+        //Given
+        Optional<Perfum> perfum = Optional.of(Perfum.builder()
+                .name("Pefum x")
+                .category(Category.Women)
+                .stockQuantity(50)
+                .build());
+
+        //When
+        when(perfumRepository.findById(any())).thenReturn(perfum);
+
+        //Then
+        boolean isAvailable = perfumService.checkStockQuantity(UUID.randomUUID(), 2);
+        assertEquals(true, isAvailable);
+        assertEquals(48, perfum.get().getStockQuantity());
+    }
 }

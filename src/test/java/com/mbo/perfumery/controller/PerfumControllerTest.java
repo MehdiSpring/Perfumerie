@@ -77,7 +77,8 @@ class PerfumControllerTest {
                                 fieldWithPath("[].category").type("String").description("It's an Enum that can have 2 values {Men, Women}. this property allows to know if the perfum is for Men or Women"),
                                 fieldWithPath("[].createdDate").type("Date").description("Creation date of the perfum"),
                                 fieldWithPath("[].updatedDate").type("Date").description("Last update date of the perfum"),
-                                fieldWithPath("[].price").type("Double").description("Perfum's price")
+                                fieldWithPath("[].price").type("Double").description("Perfum's price"),
+                                fieldWithPath("[].stockQuantity").type("Integer").description("The quantity available on stock")
                         )));
     }
 
@@ -105,7 +106,8 @@ class PerfumControllerTest {
                                 fieldWithPath("[].category").type("String").description("It's an Enum that can have 2 values {Men, Women}. this property allows to know if the perfum is for Men or Women"),
                                 fieldWithPath("[].createdDate").type("Date").description("Creation date of the perfum"),
                                 fieldWithPath("[].updatedDate").type("Date").description("Last update date of the perfum"),
-                                fieldWithPath("[].price").type("Double").description("Perfum's price")
+                                fieldWithPath("[].price").type("Double").description("Perfum's price"),
+                                fieldWithPath("[].stockQuantity").type("Integer").description("The quantity available on stock")
                         )));
     }
 
@@ -118,6 +120,7 @@ class PerfumControllerTest {
                 .category(Category.Men)
                 .ingredient("some ingredients")
                 .price(85D)
+                .stockQuantity(20)
                 .build();
 
 
@@ -144,7 +147,8 @@ class PerfumControllerTest {
                                 constrainedFields.withPath("description").type("String").description("A brief description about the Perfum"),
                                 constrainedFields.withPath("ingredient").type("String").description("List of ingredients used to product the Perfum"),
                                 constrainedFields.withPath("category").type("String").description("It's an Enum that can have 2 values {Men, Women}. this property allows to know if the perfum is for Men or Women"),
-                                constrainedFields.withPath("price").type("Double").description("Perfum's price")
+                                constrainedFields.withPath("price").type("Double").description("Perfum's price"),
+                                constrainedFields.withPath("stockQuantity").type("Integer").description("The quantity available on stock")
                         ),
                         responseFields(
                                 fieldWithPath("id").type("UUID").description("Perfum's id"),
@@ -154,7 +158,8 @@ class PerfumControllerTest {
                                 fieldWithPath("category").type("String").description("It's an Enum that can have 2 values {Men, Women}. this property allows to know if the perfum is for Men or Women"),
                                 fieldWithPath("createdDate").type("Date").description("Creation date of the perfum"),
                                 fieldWithPath("updatedDate").type("Date").description("Last update date of the perfum"),
-                                fieldWithPath("price").type("Double").description("Perfum's price")
+                                fieldWithPath("price").type("Double").description("Perfum's price"),
+                                fieldWithPath("stockQuantity").type("Integer").description("The quantity available on stock")
                         )));
 
     }
@@ -168,6 +173,7 @@ class PerfumControllerTest {
                 .category(Category.Men)
                 .ingredient("some ingredients")
                 .price(-85D)
+                .stockQuantity(20)
                 .build();
 
 
@@ -192,6 +198,7 @@ class PerfumControllerTest {
                 .category(Category.Men)
                 .ingredient("Update ingredients")
                 .price(45D)
+                .stockQuantity(20)
                 .build();
 
         String jsonPerfum = objectMapper.writeValueAsString(perfumDto);
@@ -220,7 +227,8 @@ class PerfumControllerTest {
                                 constrainedFields.withPath("description").type("String").description("A brief description about the Perfum"),
                                 constrainedFields.withPath("ingredient").type("String").description("List of ingredients used to product the Perfum"),
                                 constrainedFields.withPath("category").type("String").description("It's an Enum that can have 2 values {Men, Women}. this property allows to know if the perfum is for Men or Women"),
-                                constrainedFields.withPath("price").type("Double").description("Perfum's price")
+                                constrainedFields.withPath("price").type("Double").description("Perfum's price"),
+                                constrainedFields.withPath("stockQuantity").type("Integer").description("The quantity available on stock")
                         ),
                         responseFields(
                                 fieldWithPath("id").type("UUID").description("Perfum's id"),
@@ -230,7 +238,8 @@ class PerfumControllerTest {
                                 fieldWithPath("category").type("String").description("It's an Enum that can have 2 values {Men, Women}. this property allows to know if the perfum is for Men or Women"),
                                 fieldWithPath("createdDate").type("Date").description("Creation date of the perfum"),
                                 fieldWithPath("updatedDate").type("Date").description("Last update date of the perfum"),
-                                fieldWithPath("price").type("Double").description("Perfum's price")
+                                fieldWithPath("price").type("Double").description("Perfum's price"),
+                                fieldWithPath("stockQuantity").type("Integer").description("The quantity available on stock")
                         )));
     }
 

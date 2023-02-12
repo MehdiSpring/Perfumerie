@@ -1,5 +1,7 @@
 package com.mbo.perfumery.dto;
 
+import com.fasterxml.jackson.annotation.JsonFormat;
+import com.fasterxml.jackson.annotation.JsonProperty;
 import com.mbo.perfumery.enums.Category;
 import lombok.AllArgsConstructor;
 import lombok.Builder;
@@ -39,4 +41,8 @@ public class PerfumDto {
     @NotNull
     @Positive
     private Double price;
+
+    @NotNull
+    @Positive
+    private Integer stockQuantity;
 }
