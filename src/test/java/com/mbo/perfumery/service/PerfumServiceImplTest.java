@@ -151,4 +151,39 @@ class PerfumServiceImplTest {
         assertEquals(true, isAvailable);
         assertEquals(48, perfum.get().getStockQuantity());
     }
+
+    @Test
+    void getPerfumById()
+    {
+        //Given
+        Optional<Perfum> perfum = Optional.of(Perfum.builder()
+                .name("Perfum x")
+                .description("It's a test perfum")
+                .category(Category.Men)
+                .price(100D)
+                .stockQuantity(20)
+                .build());
+        //When
+        when(perfumRepository.findById(any())).thenReturn(perfum);
+
+        //Then
+        PerfumDto perfumDto = perfumService.getPerfumById(UUID.randomUUID());
+        assertEquals(perfumDto.getName(), perfum.get().getName());
+        assertEquals(perfumDto.getPrice(), perfum.get().getPrice());
+    }
+
+    @Test
+    void getPerfumByIdNotFound()
+    {
+        //Given
+        Optional<Perfum> emptyperfum = Optional.empty();
+
+        //When
+        when(perfumRepository.findById(any())).thenReturn(emptyperfum);
+
+        //Then
+        assertThrows(RuntimeException.class,()->{
+            perfumService.getPerfumById(UUID.randomUUID());
+        });
+    }
 }

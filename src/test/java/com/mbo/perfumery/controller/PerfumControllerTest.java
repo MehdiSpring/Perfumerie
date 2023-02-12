@@ -254,6 +254,29 @@ class PerfumControllerTest {
                         )));
     }
 
+    @Test
+    void getPerfumById() throws Exception {
+        //Given
+        PerfumDto perfumDto = PerfumDto.builder()
+                .name("Perfum x")
+                .description("It's a test perfum")
+                .price(75D)
+                .build();
+
+        //When
+        when(perfumService.getPerfumById(any())).thenReturn(perfumDto);
+
+        //Then
+        mockMvc.perform(get(API_V1_PERFUMS+"/{id}", UUID.randomUUID())
+                .accept(MediaType.APPLICATION_JSON_VALUE))
+                .andExpect(status().isFound())
+                .andExpect(jsonPath("$.name", equalTo(perfumDto.getName())))
+                .andDo(document("get"+API_V1_PERFUMS+"/id",
+                        pathParameters(
+                            parameterWithName("id").description("Perfum id to find")
+                )));
+    }
+
     List<PerfumDto> initSomePerfum()
     {
 

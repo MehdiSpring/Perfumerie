@@ -31,6 +31,12 @@ public class PerfumController {
         return new ResponseEntity<>(perfumService.getParfumByCategory(category), HttpStatus.ACCEPTED);
     }
 
+    @GetMapping("/{id}")
+    public ResponseEntity<PerfumDto> getPerfumById(@PathVariable UUID id)
+    {
+        return new ResponseEntity<>(perfumService.getPerfumById(id), HttpStatus.FOUND);
+    }
+
     @PostMapping
     public ResponseEntity<PerfumDto> createPerfum(@Valid @RequestBody PerfumDto perfumDto)
     {

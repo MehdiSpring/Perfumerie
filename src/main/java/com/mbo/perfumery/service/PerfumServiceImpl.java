@@ -75,4 +75,12 @@ public class PerfumServiceImpl implements PerfumService {
 
         return false;
     }
+
+    @Override
+    public PerfumDto getPerfumById(UUID id) {
+
+        return perfumMapper.perfumToPerfumDto(perfumRepository.findById(id)
+                .orElseThrow(()-> new RuntimeException("Id not found")));
+
+    }
 }

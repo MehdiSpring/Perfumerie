@@ -16,5 +16,7 @@ public interface PerfumService {
 
     boolean checkStockQuantity(UUID id, Integer orderQuantity);
 
+    PerfumDto getPerfumById(UUID id);
+
 
 }
