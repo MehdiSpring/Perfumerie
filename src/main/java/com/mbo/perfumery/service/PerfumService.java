@@ -14,5 +14,7 @@ public interface PerfumService {
     PerfumDto updatePerfum(UUID id, PerfumDto perfumDto);
     void deletePerfum(UUID id);
 
+    boolean checkStockQuantity(UUID id, Integer orderQuantity);
+
 
 }

@@ -44,4 +44,6 @@ public class Perfum {
     private Long version;
 
     private Double price;
+
+    private Integer stockQuantity;
 }
