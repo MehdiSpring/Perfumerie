@@ -22,6 +22,7 @@ import java.util.UUID;
 //Another commit from branch_6
 //Another commit from branch 7 (Snake Eater)
 //Last commit from branch 6
+//Last commit from branch 7 (Beast)
 @RestController
 @RequiredArgsConstructor
 @RequestMapping("/api/v1/perfums")
