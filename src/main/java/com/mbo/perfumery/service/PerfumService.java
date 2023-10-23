@@ -6,6 +6,7 @@ import com.mbo.perfumery.enums.Category;
 import java.util.List;
 import java.util.UUID;
 
+//Adding new method in PerfumService
 public interface PerfumService {
 
     List<PerfumDto> getAllParfum();

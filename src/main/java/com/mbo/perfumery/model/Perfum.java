@@ -13,6 +13,7 @@ import javax.persistence.*;
 import java.sql.Timestamp;
 import java.util.UUID;
 
+//Adding a new property in Perfum model
 @Entity
 @Data
 @NoArgsConstructor
