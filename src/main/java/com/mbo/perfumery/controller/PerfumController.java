@@ -26,6 +26,8 @@ import java.util.UUID;
 @RestController
 @RequiredArgsConstructor
 @RequestMapping("/api/v1/perfums")
+
+//Implement V2 version of the PefumController
 public class PerfumController {
 
     private final PerfumService perfumService;
