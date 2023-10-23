@@ -7,6 +7,7 @@ import org.springframework.data.repository.PagingAndSortingRepository;
 import java.util.List;
 import java.util.UUID;
 
+//Fifth and last commit from patch_1
 public interface PerfumRepository extends PagingAndSortingRepository<Perfum, UUID> {
 
     List<Perfum> findByCategory(Category category);
