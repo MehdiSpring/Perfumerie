@@ -11,6 +11,7 @@ import java.util.List;
 import java.util.stream.Collectors;
 import java.util.stream.Stream;
 
+//First commit from patch_1
 //@Component
 @RequiredArgsConstructor
 public class LoadData implements CommandLineRunner {
